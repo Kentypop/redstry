@@ -1,6 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from .models import Post
+from .models import Post, Price
+from .forms import PriceForm
+from django.contrib import messages
 
 poststry= [
 	{
@@ -46,3 +48,20 @@ def hometry(request):
 
 def abouttry(request):
 	return render(request, 'info/abouttry.html', {'title': 'About'})		
+
+def price(request):
+	context= {
+		'prices': Price.objects.all()
+	}
+	return render(request, 'info/price.html', context)	
+
+def pricenew(request):
+	form= PriceForm(request.POST)
+	if form.is_valid():
+		form.save()
+		name= form.cleaned_data.get('name')
+		messages.success(request, f'Hair price created for {name}!')
+		return redirect('info-price')
+
+
+	return render(request, 'info/pricenew.html', {'form': form})	
