@@ -7,6 +7,8 @@
         <div class="media-body">
           <h2 class="account-heading">{{ user.username }}</h2>
           <p class="text-secondary">{{ user.email }}</p>
+          <p class="text-secondary">Coupon valid from {{ Coupon.valid_from }}</p>
+          <p class="text-secondary">Coupon valid till {{ Coupon.valid_till }}</p>
         </div>
       </div>
         <form method="POST" enctype="multipart/form-data">
