@@ -33,10 +33,13 @@ def profile(request):
         u_form= UserUpdateForm(instance= request.user)
         p_form= ProfileUpdateForm(instance= request.user.profile)
             
+    # We can easily use .get() to get the coupon associated to the request user
+    user_coupon = Coupon.objects.get(user=request.user)    
+
     context= {
         'u_form': u_form,
         'p_form': p_form,
-        'Coupon': Coupon,
+        'Coupon': user_coupon,
     }
 
     return render(request, 'users/profile.html', context)
