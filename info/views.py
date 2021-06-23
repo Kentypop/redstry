@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from .models import Post, Price
 from .forms import PriceForm
 from django.contrib import messages
+from users.models import Coupon
 
 poststry= [
 	{
@@ -40,10 +41,14 @@ def about(request):
 
 # Create your views here.
 def hometry(request):
+
+	user_coupon = Coupon.objects.get(user=request.user) 
 	context= {
 		'posts': poststry,
-		'girls': girl
+		'girls': girl,
+		'Coupon': user_coupon,
 	}
+	print(user_coupon)
 	return render(request, 'info/hometry.html', context)
 
 def abouttry(request):
